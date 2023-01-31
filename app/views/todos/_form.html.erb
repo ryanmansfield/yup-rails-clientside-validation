@@ -1,7 +1,7 @@
 <%= form_with(model: todo,
   data: {
     controller: "form",
-    action: "form#submit"
+    action: "turbo:submit-start->form#submit"
   }
 ) do |form| %>
   <% if todo.errors.any? %>
@@ -18,27 +18,27 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, data: { form_target: :name } %>
   </div>
 
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, data: { form_target: :description } %>
   </div>
 
   <div>
     <%= form.label :due_date, style: "display: block" %>
-    <%= form.date_field :due_date %>
+    <%= form.date_field :due_date, data: { form_target: :dueDate } %>
   </div>
 
   <div>
     <%= form.label :review_required, style: "display: block" %>
-    <%= form.check_box :review_required %>
+    <%= form.check_box :review_required, data: { form_target: :reviewRequired } %>
   </div>
 
   <div>
     <%= form.label :priority, style: "display: block" %>
-    <%= form.number_field :priority %>
+    <%= form.number_field :priority, data: { form_target: :priority } %>
   </div>
 
   <div>
