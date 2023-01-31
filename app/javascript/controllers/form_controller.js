@@ -39,9 +39,13 @@ export default class extends Controller {
   }
   
   applyErrors(event) {
+    const name = this.nameTarget
     this.schema.validate(this.data, { abortEarly: false }).catch(function(errors) {
       errors.inner.forEach(error => {
         console.log(error.path, error.errors)
+        const element = document.getElementById(error.path);
+      
+        element.innerHTML += `<p>Error: ${error.errors}</p>`
       })
     });
     console.log("Stopping submission")
