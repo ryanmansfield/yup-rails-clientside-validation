@@ -16,19 +16,19 @@ export default class extends Controller {
   }
 
   schema = yup.object().shape({
-    name: yup.string().required(),
+    name: yup.string().required("Name is Required"),
     description: yup.string().required(),
     due_date: yup.date().required(),
     review_required: yup.boolean(),
-    priority: yup.number().required(),
+    priority: yup.number().required().min(1,"Priority must be 1 or more").max(10,"Can't have more then 10 priority"),
   });
 
   data =  {
     name: this.nameTarget.value,
     description: this.descriptionTarget.value,
-    due_date: this.dueDateTarget.value,
+    due_date: Date.parse(this.dueDateTarget.value),
     review_required: this.reviewRequiredTarget.value,
-    priority: this.priorityTarget.value
+    priority: Number(this.priorityTarget.value)
   }
 
   validateForm() {
@@ -39,7 +39,6 @@ export default class extends Controller {
   }
   
   applyErrors(event) {
-    const name = this.nameTarget
     this.schema.validate(this.data, { abortEarly: false }).catch(function(errors) {
       errors.inner.forEach(error => {
         console.log(error.path, error.errors)
